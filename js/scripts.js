@@ -7,7 +7,7 @@ fetch(APIurl)
 .then(response => response.json())
 .then(data => Employees = data.results)
 .then(data => showEmployees(Employees))
-.then(data => showModal(clickedEmployee)) ;
+.then(data => showModal(clickedEmployee));
 
 
 
@@ -59,7 +59,7 @@ galleryDiv.addEventListener('click', (e) => {
 function showClickedEmployee () {
 for (let i = 0 ; i < Employees.length ; i++) {
     if (Employees[i].email === clickedEmployeeMail) {
-        let clickedEmployee = Employees[i] ;
+        clickedEmployee = Employees[i] ;
         showModal(clickedEmployee);
   }
  }
