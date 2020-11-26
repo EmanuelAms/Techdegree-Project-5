@@ -1,72 +1,101 @@
-/*
-/
-/
-*/
+let Employees = [] ;
+let clickedEmployee ;
 
-//
+const APIurl = 'https://randomuser.me/api/?results=12' ;
 
-add DOM elements to html
-add Search markup: 
-add Gallery markup:
-add Modal markup:
+fetch(APIurl)
+.then(response => response.json())
+.then(data => Employees = data.results)
+.then(data => showEmployees(Employees))
+.then(data => showModal(clickedEmployee)) ;
 
-/*
-/
-/
-*/
 
-//
 
-element.innerHTML += 'HTML string' >>> element.insertAdjacentHTML('beforeend', 'HTML string')
 
-/*
-/
-/
-*/
+const galleryDiv = document.querySelector('#gallery') ;
 
-//
+function showEmployees (Employees) {
+    let galleryMarkup = "" ;
 
-send a single request to the API
-use the response data to display 12 users (imitate mockups.png, look up index.html comments)
-                         display Image , First and Last Name , Email , City or location
-> 12 random users are pulled from the API in a single request
-> New random employee information displays each time the page refreshes 
-> The directory displays 12 users from the Random User API
+    Employees.forEach(Employee => {
+        galleryMarkup += 
+        `<div class="card">
+               <div class="card-img-container">
+                   <img class="card-img" src="${Employee.picture.large}" alt="profile picture">
+               </div>
+               <div class="card-info-container">
+                   <h3 id="name" class="card-name cap"> ${Employee.name.first} ${Employee.name.last} </h3>
+                   <p class="card-text"> ${Employee.email} </p>
+                   <p class="card-text cap"> ${Employee.location.city}, ${Employee.location.state} </p>
+               </div>
+        </div>`
+    })
 
-// EXTRA CREDITS 
+    galleryDiv.insertAdjacentHTML('beforeend', galleryMarkup) ;
+};
 
-SEARCH
-Filter directory by name, filters results that are already on the page
-adjust your API request to retrieve a user nationality that will only return data in the English alphabet.
-don't request new info from the API for your search.
-(look up index.html comments)
 
-/*
-/
-/
-*/
 
-//
 
-click > modal window pop up with details displayed : Image, Name, Email, City or location, Cell Number (XXX) XXX-XXXX, Birthday MM/DD/YYYY,
-Detailed Address, including street name and number, state or country, and two letter post code.
-(imitate mockups.png, look up index.html comments)
-Find a way to close the modal window
+let clickedEmployeeMail ;
 
-// EXTRA CREDITS 
+galleryDiv.addEventListener('click', (e) => {
+    if (e.target.className === 'card'){
+        clickedEmployeeMail = e.target.children[1].children[1].innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.parentElement.className === 'card'){
+        clickedEmployeeMail = e.target.parentElement.children[1].children[1].innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.parentElement.parentElement.className === 'card'){
+        clickedEmployeeMail = e.target.parentElement.parentElement.children[1].children[1].innerText ;
+        showClickedEmployee ();
+    }
+});
 
-TOGGLE
-FInd a way toggle back and forth between employees when the modal window is open.
-There should be no errors once the end or beginning of the list is reached.
-(look up index.html comments)
 
-/*
-/
-/
-*/
 
-// EXTRA CREDITS 
+function showClickedEmployee () {
+for (let i = 0 ; i < Employees.length ; i++) {
+    if (Employees[i].email === clickedEmployeeMail) {
+        let clickedEmployee = Employees[i] ;
+        showModal(clickedEmployee);
+  }
+ }
 
-CSS
-change color / background color / font / box or text shadows & document changes in readme and submission notes
-Don't alter the layout or position of the important elements on the page.
+} ;
+
+function convertDob (date) {
+    return date = date.substring(0,10).replace(/\D/g, '').replace(/(\d{4})(\d{2})(\d{2})/g, '$2/$3/$1');
+}
+
+function showModal (clickedEmployee) {  
+
+     let modalMarkup = 
+           `<div class="modal-container">
+                <div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src="${clickedEmployee.picture.large}" alt="profile picture">
+                        <h3 id="name" class="modal-name cap"> ${clickedEmployee.name.first} </h3>
+                        <p class="modal-text"> ${clickedEmployee.email} </p>
+                        <p class="modal-text cap"> ${clickedEmployee.location.city} </p>
+                        <hr>
+                        <p class="modal-text">${clickedEmployee.phone}</p>
+                        <p class="modal-text">${clickedEmployee.location.street.number} ${clickedEmployee.location.street.name}, ${clickedEmployee.location.city}, ${clickedEmployee.location.state} ${clickedEmployee.location.postcode}</p>
+                        <p class="modal-text">Birthday: ${convertDob(clickedEmployee.dob.date)}</p>
+                    </div>
+                </div>
+            </div>`
+
+    galleryDiv.insertAdjacentHTML('afterend', modalMarkup) ;
+
+    const modalDiv = document.querySelector('.modal-container') ;
+    
+    modalDiv.addEventListener('click', (e) => {
+        if (e.target.className === 'modal-close-btn' || e.target.textContent === 'X'){
+            modalDiv.remove() ;
+        }
+    });
+};
