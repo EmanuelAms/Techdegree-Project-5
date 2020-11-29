@@ -52,7 +52,6 @@ function showEmployees (Employees) {
     galleryDiv.insertAdjacentHTML('beforeend', galleryMarkup) ;
 };
 
-
 /*
 // Modal Window
 */
@@ -81,6 +80,23 @@ galleryDiv.addEventListener('click', (e) => {
         showClickedEmployee ();
     }
 });
+
+/*
+galleryDiv.addEventListener('click', (e) => {
+    if (e.target.className === 'card'){
+        clickedEmployeeMail = e.target.children[1].children[1].innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.parentElement.className === 'card'){
+        clickedEmployeeMail = e.target.parentElement.children[1].children[1].innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.parentElement.parentElement.className === 'card'){
+        clickedEmployeeMail = e.target.parentElement.parentElement.children[1].children[1].innerText ;
+        showClickedEmployee ();
+    }
+});
+*/
 
 /*
 Create a function "showClickedEmployee" to determine which is the "clickedEmployee", using the email of the employee as matching reference.
