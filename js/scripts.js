@@ -71,32 +71,31 @@ galleryDiv.addEventListener('click', (e) => {
         clickedEmployeeMail = e.target.children[1].children[1].innerText ;
         showClickedEmployee ();
     }
-    else if (e.target.parentElement.className === 'card'){
+    else if (e.target.className === 'card-img-container'){
         clickedEmployeeMail = e.target.parentElement.children[1].children[1].innerText ;
         showClickedEmployee ();
     }
-    else if (e.target.parentElement.parentElement.className === 'card'){
+    else if (e.target.className === 'card-img'){
         clickedEmployeeMail = e.target.parentElement.parentElement.children[1].children[1].innerText ;
         showClickedEmployee ();
     }
+    else if (e.target.className === 'card-info-container'){
+        clickedEmployeeMail = e.target.children[1].innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.className === 'card-name cap'){
+        clickedEmployeeMail = e.target.parentElement.children[1].innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.className === 'card-text'){
+        clickedEmployeeMail = e.target.innerText ;
+        showClickedEmployee ();
+    }
+    else if (e.target.className === 'card-text cap'){
+        clickedEmployeeMail = e.target.parentElement.children[1].innerText ;
+        showClickedEmployee ();
+    }
 });
-
-/*
-galleryDiv.addEventListener('click', (e) => {
-    if (e.target.className === 'card'){
-        clickedEmployeeMail = e.target.children[1].children[1].innerText ;
-        showClickedEmployee ();
-    }
-    else if (e.target.parentElement.className === 'card'){
-        clickedEmployeeMail = e.target.parentElement.children[1].children[1].innerText ;
-        showClickedEmployee ();
-    }
-    else if (e.target.parentElement.parentElement.className === 'card'){
-        clickedEmployeeMail = e.target.parentElement.parentElement.children[1].children[1].innerText ;
-        showClickedEmployee ();
-    }
-});
-*/
 
 /*
 Create a function "showClickedEmployee" to determine which is the "clickedEmployee", using the email of the employee as matching reference.
