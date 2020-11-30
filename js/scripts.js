@@ -23,6 +23,7 @@ fetch(APIurl)
 // User directory
 */
 
+
 /*
 Create a function "showEmployees" to dynamically add HTML code to the index.html file.
 Insert HTML code in the "gallery" div, so as to display 12 user "cards".
