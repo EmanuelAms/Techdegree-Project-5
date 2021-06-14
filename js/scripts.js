@@ -1,5 +1,5 @@
 /*
-// API usage t
+// API usage
 */
 
 /*
